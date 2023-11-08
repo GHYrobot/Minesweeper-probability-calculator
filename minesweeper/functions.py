@@ -54,9 +54,25 @@ def squareNum(coords, board):
                      (y - 1, x + 1)]
     bombcount = 0
     for sqr in possibilities:
-        if inside(sqr, len(board), len(board[0])):
+        if inside(sqr, len(board), len(board[0])): 
             bombcount += board[sqr[0]][sqr[1]]
     return (bombcount)
+
+# Returns the number of flags around a given square
+def flagsNum(coords, board):
+    y, x = coords[0], coords[1]
+    possibilities = [(y + 1, x), (y + 1, x + 1), (y, x + 1), (y - 1, x), (y - 1, x - 1), (y, x - 1), (y + 1, x - 1),
+                     (y - 1, x + 1)]
+    flagscount = 0
+    for sqr in possibilities:
+        if inside(sqr, len(board), len(board[0])):
+           if (board[sqr[0]][sqr[1]] == '🚩'): flagscount += 1 
+    return (flagscount)
+
+#TODO: Check false flag marking 
+def CheckFalseFlag(coords,knownbord,board):
+    print("🏴")
+    return 0
 
 # In minesweeper, when the player clicks a square with number 0, all surrouding squares are cleared automatically
 # This function does that.
@@ -68,7 +84,7 @@ def cleanboard(knownBoard,gameBoard,seen):
         zerosqrs = []
         for y, r in enumerate(knownBoard):
             for x, c in enumerate(r):
-                if c == 0 and (y, x) not in seen:
+                if c == 0 and (y, x) not in seen and gameBoard[y][x]==0: #GHY: Added test for 0 in gameboar
                     for sqr in surrounds((y, x), gameBoard):
                         if gameBoard[sqr[0]][sqr[1]] == 0:
                             sqrNum = squareNum(sqr, gameBoard)
@@ -77,7 +93,8 @@ def cleanboard(knownBoard,gameBoard,seen):
                                 zerosqrs.append((sqr[0], sqr[1]))
                             else:
                                 knownBoard[sqr[0]][sqr[1]] = sqrNum
-                    seen.append((y, x))
+                    seen.append((y, x)) 
+                    if gameBoard[y][x]==1: print("Mismatch Cell at",x, y, " is MINE") #GHY: TEST for wrong mine markings
         for sqr in zerosqrs:
             knownBoard[sqr[0]][sqr[1]] = 0
 
@@ -323,3 +340,4 @@ def calcprobs(board,rem_mines):
     else:
         print("The linear system method wasn't needed")
     return(newboard)
+
