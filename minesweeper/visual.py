@@ -2,10 +2,13 @@ import pygame as p
 p.font.init()
 
 path = ''    # This should contain the path of where the game folder is
+
 Icon = p.image.load(path+'images/bombicon.png')
 p.display.set_icon(Icon)
 mine = p.image.load(path+'images/mine.png')
 flag = p.image.load(path+'images/flag.png')
+wflag = p.image.load(path+'images/mine_wrong.png')
+bMine = p.image.load(path+'images/mine_red.png')
 notpressed = p.image.load(path+'images/notpressed.png')
 numbers = {}
 for i in range(9):
@@ -50,4 +53,8 @@ def drawBoard(screen,board,mineboard,probboard,SQ_SIZE,status,display):
                 blitimage(screen, numbers[val], r, c, SQ_SIZE,1,1)
             elif val == '🚩':
                 blitimage(screen,flag,r,c,SQ_SIZE,1,1)
+            elif val == '🏴':
+                blitimage(screen,wflag,r,c,SQ_SIZE,1,1)
+            elif val == 'b':
+                blitimage(screen,bMine,r,c,SQ_SIZE,1,1)
     pass
