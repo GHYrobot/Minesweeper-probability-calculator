@@ -1,6 +1,7 @@
 # Minesweeper-probability-calculator
 A Python implementation of Minesweeper with a mine probability calculator
 
+Original from pedrokkrause / Minesweeper-probability-calculator
 ## Requirements
 This Python project uses PyGame, SymPy and built-in library functions for Python >= 3.8
 
@@ -8,9 +9,12 @@ This Python project uses PyGame, SymPy and built-in library functions for Python
 - The game currently does not have a proper GUI. It starts with the game already initiated according to the number of mines, width and height in the code. To change these variables go to the lines 4, 5 and 6 of main.py. To change the window size, change the variable 'SQ_SIZE' in line 14.
 - Click with the left mouse button to reveal a square. If it is a mine, all the mines will appear and the game will freeze.
 - Click with the right mouse button to add or remove a flag (**Warning**: squares incorrectly flagged may crash the game when using the probability function due to the linear system having inconsistencies, see more about below)
+- Click on number cell with left mouse button to chording neibor cells
 - Press 'p' to show the probabilities
 - Press 'l' to hide the probabilities
 - Press 'c' to automatically click the squares with probability of 100% or 0%
+- Press 'n' to generate new board
+- Press 'q' to quit the game
 
 ## How the probability calculator works
 The function that calculates probability is separed in 3 main steps:
@@ -35,3 +39,11 @@ Then, for each group, all possible values of their respective parameters (note t
 After this, every possible combination of the found group solutions, that is, every possible arrangement of the mines in the border squares, is considered to calculate the final probability of each square. The calculation is identical to the one described here: https://youtu.be/D7Cwbk9xphY
 
 For the squares that are not adjacent to a number square, the probability calculation is much more simple because there isn't much information. Their probabilities, given the number of mines used in a certain arrangement of the border squares, is simply (the remaining mines - number of mines used in the arrangement)/(non-border squares), as the mines must be scattered equally likely for each one of them. Then, the final probability is the average over all possible arrangements.
+
+
+TODO:
+1. Wrong flag marking detection.
+2. Load game from file MBR (binary or ASCII)
+3. Time, 3BV calculation
+4. Brutforcing in game solving.
+5. Main board standart configarion(9x9x10,16x16x40,30x16x99) via key select.
